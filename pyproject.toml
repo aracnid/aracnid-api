@@ -6,12 +6,14 @@ build-backend = "flit_core.buildapi"
 module = "aracnid_api"
 author = "Jason Romano"
 author-email = "aracnid@gmail.com"
-home-page = "https://github.com/lakeannebrewhouse/aracnid-api"
+home-page = "https://github.com/aracnid/aracnid-api"
 classifiers = ["License :: OSI Approved :: MIT License"]
 description-file = "README.md"
 requires-python = "~=3.8"
 requires = [
-    "slackclient ~=2.9"
+    "airtable-python-wrapper ~=0.15",
+    "aracnid-logger ~=1.0",
+    "python-dateutil ~=2.8"
 ]
 keywords = "api"
 
