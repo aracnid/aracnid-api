@@ -10,7 +10,6 @@ verify_ssl = true
 
 [dev-packages]
 flit = "*"
-pylint = "*"
 pytest = "*"
 
 [packages]
@@ -19,7 +18,7 @@ airtable-python-wrapper = "*"
 python-dateutil = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true
