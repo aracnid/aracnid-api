@@ -5,7 +5,6 @@ import os
 from airtable import Airtable
 from aracnid_logger import Logger
 from dateutil.parser import parse
-# from pytz import timezone
 
 
 # initialize logging
