@@ -108,3 +108,25 @@ class AirtableInterface:
         dt_local = parse(field_val).astimezone()
 
         return dt_local
+
+    @classmethod
+    def match_record(cls, table, field_name, field_value):
+        """Returns a record that matches the specified field name and value.
+
+        Tried using the .match() method, but this failed when apostrophes are passed.
+        I updated the source code for C:\\Users\\Public\\Documents\\dev\\virtualenvs\\labdb\\Lib\\site-packages\\airtable\\params.py
+        I updated line 210 to the following, swapping the quotes around.
+        field_value = '"{}"'.format(field_value)
+        This will work for apostrophes now, but will fail on double quotes.
+
+        Args:
+            table: The Airtable Table object.
+            field_name: The name of the record's field.
+            field_value: The value of the field.
+        """
+        record = None
+
+        field_value_escaped = field_value.replace("'", r"\'")
+        record = table.match(field_name, field_value_escaped)
+
+        return record

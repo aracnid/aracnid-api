@@ -57,3 +57,33 @@ def test_get_airtable_datetime_createdTime(air):
     assert record
     dtetime = air.get_airtable_datetime(record, 'createdTime')
     assert type(dtetime) is datetime
+
+def test_match_record(air):
+    """Tests matching an airtable record.
+    """
+    record_id = 'recuaPzY7QvSbysW1'
+
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name='name'
+    field_value="test_record"
+    record = air.match_record(table, field_name=field_name, field_value=field_value)
+
+    assert record
+    assert record['id'] == record_id
+
+def test_match_record_with_apostrophes(air):
+    """Tests matching an airtable record.
+    """
+    record_id = 'recnWXHPUSw0uXJRe'
+
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name='name'
+    field_value="apostrophe's test"
+    record = air.match_record(table, field_name=field_name, field_value=field_value)
+
+    assert record
+    assert record['id'] == record_id
