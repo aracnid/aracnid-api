@@ -111,7 +111,7 @@ class AirtableInterface:
 
     @classmethod
     def create_record(cls, table, fields):
-        """Creates a with the specified fields.
+        """Creates a record with the specified fields.
 
         Args:
             table: The Airtable Table object.
@@ -142,5 +142,20 @@ class AirtableInterface:
 
         field_value_escaped = field_value.replace("'", r"\'")
         record = table.match(field_name, field_value_escaped)
+
+        return record
+
+    @classmethod
+    def update_record(cls, table, record_id, fields):
+        """Updates a record with the specified fields.
+
+        Args:
+            table: The Airtable Table object.
+            record_id: The Airtable record identifier.
+            fields: The fields for the created record.
+        """
+        record = None
+
+        record = table.update(record_id, fields, typecast=True)
 
         return record

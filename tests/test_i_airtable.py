@@ -64,8 +64,8 @@ def test_create_record(air):
     table_name = 'test_date'
     table = air.get_table(table_name=table_name)
 
-    field_name='Name'
-    field_value="test_create_record()"
+    field_name = 'Name'
+    field_value = "test_create_record()"
     fields = {
         field_name: field_value
     }
@@ -82,8 +82,8 @@ def test_match_record(air):
     table_name = 'test_date'
     table = air.get_table(table_name=table_name)
 
-    field_name='name'
-    field_value="test_record"
+    field_name = 'Name'
+    field_value = "test_record"
     record = air.match_record(table, field_name=field_name, field_value=field_value)
 
     assert record
@@ -97,9 +97,30 @@ def test_match_record_with_apostrophes(air):
     table_name = 'test_date'
     table = air.get_table(table_name=table_name)
 
-    field_name='name'
-    field_value="apostrophe's test"
+    field_name = 'Name'
+    field_value = "apostrophe's test"
     record = air.match_record(table, field_name=field_name, field_value=field_value)
 
     assert record
     assert record['id'] == record_id
+
+def test_update_record(air):
+    """Tests updating an airtable record.
+    """
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name = 'Name'
+    field_value = "test_create_record()"
+    record = air.match_record(table, field_name=field_name, field_value=field_value)
+
+    new_field_value = 'test_update_record()'
+    fields = {
+        field_name: new_field_value
+    }
+
+    record = air.update_record(table, record['id'], fields)
+
+    assert record
+    assert record['fields'][field_name] == new_field_value
+
