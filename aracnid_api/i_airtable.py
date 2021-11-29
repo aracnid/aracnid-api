@@ -110,6 +110,20 @@ class AirtableInterface:
         return dt_local
 
     @classmethod
+    def create_record(cls, table, fields):
+        """Creates a with the specified fields.
+
+        Args:
+            table: The Airtable Table object.
+            fields: The fields for the created record.
+        """
+        record = None
+
+        record = table.insert(fields)
+        
+        return record
+
+    @classmethod
     def match_record(cls, table, field_name, field_value):
         """Returns a record that matches the specified field name and value.
 

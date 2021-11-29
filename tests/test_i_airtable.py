@@ -58,6 +58,22 @@ def test_get_airtable_datetime_createdTime(air):
     dtetime = air.get_airtable_datetime(record, 'createdTime')
     assert type(dtetime) is datetime
 
+def test_create_record(air):
+    """Tests creating an airtable record.
+    """
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name='Name'
+    field_value="test_create_record()"
+    fields = {
+        field_name: field_value
+    }
+    record = air.create_record(table, fields)
+
+    assert record
+    assert record['fields'][field_name] == field_value
+
 def test_match_record(air):
     """Tests matching an airtable record.
     """
