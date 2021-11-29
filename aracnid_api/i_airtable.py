@@ -159,3 +159,17 @@ class AirtableInterface:
         record = table.update(record_id, fields, typecast=True)
 
         return record
+
+    @classmethod
+    def delete_record(cls, table, record_id):
+        """Deletes the specified record.
+
+        Args:
+            table: The Airtable Table object.
+            record_id: The Airtable record identifier.
+        """
+        record = None
+
+        record = table.delete(record_id)
+
+        return record

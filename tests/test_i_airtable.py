@@ -124,3 +124,18 @@ def test_update_record(air):
     assert record
     assert record['fields'][field_name] == new_field_value
 
+def test_delete_record(air):
+    """Tests deleting an airtable record.
+    """
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name = 'Name'
+    field_value = "test_update_record()"
+    record = air.match_record(table, field_name=field_name, field_value=field_value)
+    record_id = record['id']
+
+    record = air.delete_record(table, record_id)
+
+    assert record
+    assert record['id'] == record_id
