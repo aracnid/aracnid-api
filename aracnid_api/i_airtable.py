@@ -113,6 +113,26 @@ class AirtableInterface:
         return None
 
     @classmethod
+    def get_airtable_date(
+        cls, record, field_name, default=None, supress_warnings=False):
+        """Retrieves a date value from an Airtable record field.
+
+        Args:
+            record: The Airtable record.
+            field_name: The name of the record's field.
+            default: The default value of the field.
+            supress_warnings: Flag to turn off warnings.
+        """
+        field_val = cls.get_airtable_value(
+            record, field_name, default, supress_warnings)
+
+        if field_val:
+            dte_local = parse(field_val).date()
+            return dte_local
+
+        return None
+
+    @classmethod
     def create_record(cls, table, fields):
         """Creates a record with the specified fields.
 

@@ -10,6 +10,7 @@ from aracnid_api import AirtableInterface
 
 
 DATETIME_TEST_STR = '2020-08-05T12:00:00-04:00'
+DATE_TEST_STR = '2020-08-05'
 
 @pytest.fixture(name='air')
 def fixture_airtable():
@@ -73,6 +74,19 @@ def test_get_airtable_datetime_createdTime(air):
     assert record
     dtetime = air.get_airtable_datetime(record, 'createdTime')
     assert type(dtetime) is datetime
+
+def test_get_airtable_date(air):
+    """Tests the date processing of Airtable Interface.
+    """
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    record_id = 'recuaPzY7QvSbysW1'
+    record = table.get(record_id)
+
+    assert record
+    dtetime = air.get_airtable_date(record, 'date_field')
+    assert dtetime.isoformat() == DATE_TEST_STR
 
 def test_create_record(air):
     """Tests creating an airtable record.
