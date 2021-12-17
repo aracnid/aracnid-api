@@ -105,9 +105,12 @@ class AirtableInterface:
         """
         field_val = cls.get_airtable_value(
             record, field_name, default, supress_warnings)
-        dt_local = parse(field_val).astimezone()
 
-        return dt_local
+        if field_val:
+            dt_local = parse(field_val).astimezone()
+            return dt_local
+
+        return None
 
     @classmethod
     def create_record(cls, table, fields):

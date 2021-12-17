@@ -45,6 +45,22 @@ def test_get_airtable_datetime(air):
     dtetime = air.get_airtable_datetime(record, 'datetime_field')
     assert dtetime.isoformat() == DATETIME_TEST_STR
 
+def test_get_airtable_datetime_none(air):
+    """Tests the datetime processing of Airtable Interface.
+
+    Value of datetime field is None.
+    """
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+    fields = {
+        'Name': 'test_get_airtable_datetime_none()'
+    }
+    record = air.create_record(table, fields)
+
+    assert record
+    dtetime = air.get_airtable_datetime(record, 'datetime_field')
+    assert dtetime is None
+
 def test_get_airtable_datetime_createdTime(air):
     """Tests the datetime processing of Airtable Interface.
     """
