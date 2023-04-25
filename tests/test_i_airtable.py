@@ -62,7 +62,7 @@ def test_get_airtable_datetime_none(air):
     dtetime = air.get_airtable_datetime(record, 'datetime_field')
     assert dtetime is None
 
-def test_get_airtable_datetime_createdTime(air):
+def test_get_airtable_datetime_createdtime(air):
     """Tests the datetime processing of Airtable Interface.
     """
     table_name = 'test_date'
@@ -73,7 +73,7 @@ def test_get_airtable_datetime_createdTime(air):
 
     assert record
     dtetime = air.get_airtable_datetime(record, 'createdTime')
-    assert type(dtetime) is datetime
+    assert isinstance(dtetime, datetime)
 
 def test_get_airtable_date(air):
     """Tests the date processing of Airtable Interface.

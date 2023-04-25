@@ -10,14 +10,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 This package supports the following version of Python:
 
-- Python 3.8 or later
+- Python 3.10 or later
 
 ### Installing
 
-Install the latest package using pip. (We prefer pipenv.)
+Install the latest package using pip. (We prefer poetry.)
 
 ```
-$ pip install aracnid-api
+$ poetry install aracnid-api
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
