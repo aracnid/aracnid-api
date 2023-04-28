@@ -3,7 +3,7 @@
 from datetime import datetime
 import os
 
-import airtable
+from pyairtable import Table
 import pytest
 
 from aracnid_api import AirtableInterface
@@ -31,7 +31,7 @@ def test_get_table(air):
     table = air.get_table(table_name=table_name)
 
     assert table
-    assert isinstance(table, airtable.airtable.Airtable)
+    assert isinstance(table, Table)
 
 def test_get_airtable_datetime(air):
     """Tests the datetime processing of Airtable Interface.
@@ -129,6 +129,21 @@ def test_match_record_with_apostrophes(air):
 
     field_name = 'Name'
     field_value = "apostrophe's test"
+    record = air.match_record(table, field_name=field_name, field_value=field_value)
+
+    assert record
+    assert record['id'] == record_id
+
+def test_match_record_with_quotations(air):
+    """Tests matching an airtable record.
+    """
+    record_id = 'rec5OKqfMl6HbBIGm'
+
+    table_name = 'test_date'
+    table = air.get_table(table_name=table_name)
+
+    field_name = 'Name'
+    field_value = 'quotations "test"'
     record = air.match_record(table, field_name=field_name, field_value=field_value)
 
     assert record

@@ -2,9 +2,10 @@
 """
 import os
 
-from airtable import Airtable
 from aracnid_logger import Logger
 from dateutil.parser import parse
+from pyairtable import Table
+from pyairtable.formulas import match
 
 
 # initialize logging
@@ -42,7 +43,7 @@ class AirtableInterface:
         Args:
             table_name: The name of the table in the Airtable Base.
         """
-        table = Airtable(self.base_id, table_name, self.air_api_key)
+        table = Table(self.air_api_key, self.base_id, table_name)
 
         return table
 
@@ -142,20 +143,13 @@ class AirtableInterface:
         """
         record = None
 
-        record = table.insert(fields)
+        record = table.create(fields)
 
         return record
 
     @classmethod
     def match_record(cls, table, field_name, field_value):
         """Returns a record that matches the specified field name and value.
-
-        Tried using the .match() method, but this failed when apostrophes are passed.
-        I updated the source code for C:\\Users\\Public\\Documents
-            \\dev\\virtualenvs\\labdb\\Lib\\site-packages\\airtable\\params.py
-        I updated line 210 to the following, swapping the quotes around.
-        field_value = '"{}"'.format(field_value)
-        This will work for apostrophes now, but will fail on double quotes.
 
         Args:
             table: The Airtable Table object.
@@ -165,7 +159,7 @@ class AirtableInterface:
         record = None
 
         field_value_escaped = field_value.replace("'", r"\'")
-        record = table.match(field_name, field_value_escaped)
+        record = table.first(formula=match({field_name: field_value_escaped}))
 
         return record
 
