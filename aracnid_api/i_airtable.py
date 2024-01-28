@@ -49,14 +49,14 @@ class AirtableInterface:
 
     @staticmethod
     def get_airtable_value(
-        record, field_name, default=None, supress_warnings=False):
+        record, field_name, default=None, suppress_warnings=False):
         """Retrieves the value from an Airtable record field.
 
         Args:
             record: The Airtable record.
             field_name: The name of the record's field.
             default: The default value of the field.
-            supress_warnings: Flag to turn off warnings.
+            suppress_warnings: Flag to turn off warnings.
         """
         field_val = default
         if record:
@@ -70,7 +70,7 @@ class AirtableInterface:
                 if len(field_val) == 1:
                     field_val = field_val[0]
                 else:
-                    if not supress_warnings:
+                    if not suppress_warnings:
                         logger.warning(f'{field_name} has multiple values: '
                             f'{field_val}')
 
@@ -93,7 +93,7 @@ class AirtableInterface:
 
     @classmethod
     def get_airtable_datetime(
-        cls, record, field_name, default=None, supress_warnings=False):
+        cls, record, field_name, default=None, suppress_warnings=False):
         """Retrieves a datetime value from an Airtable record field.
 
         The datetime value is localized.
@@ -102,10 +102,10 @@ class AirtableInterface:
             record: The Airtable record.
             field_name: The name of the record's field.
             default: The default value of the field.
-            supress_warnings: Flag to turn off warnings.
+            suppress_warnings: Flag to turn off warnings.
         """
         field_val = cls.get_airtable_value(
-            record, field_name, default, supress_warnings)
+            record, field_name, default, suppress_warnings)
 
         if field_val:
             dt_local = parse(field_val).astimezone()
@@ -115,17 +115,17 @@ class AirtableInterface:
 
     @classmethod
     def get_airtable_date(
-        cls, record, field_name, default=None, supress_warnings=False):
+        cls, record, field_name, default=None, suppress_warnings=False):
         """Retrieves a date value from an Airtable record field.
 
         Args:
             record: The Airtable record.
             field_name: The name of the record's field.
             default: The default value of the field.
-            supress_warnings: Flag to turn off warnings.
+            suppress_warnings: Flag to turn off warnings.
         """
         field_val = cls.get_airtable_value(
-            record, field_name, default, supress_warnings)
+            record, field_name, default, suppress_warnings)
 
         if field_val:
             dte_local = parse(field_val).date()
