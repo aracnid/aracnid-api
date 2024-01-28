@@ -2,4 +2,4 @@
 """
 from aracnid_api.i_airtable import AirtableInterface
 
-__version__ = '1.6.0'
+__version__ = '2.0.0'
