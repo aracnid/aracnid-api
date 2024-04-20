@@ -24,6 +24,15 @@ def test_init_airtable(air):
     """
     assert air
 
+def test_get_base_name(air):
+    """Tests retrieving name of the base.
+    """
+    base_name = air.get_base_name()
+
+    assert base_name
+    assert air.base.name
+    assert base_name == 'Dev'
+
 def test_get_table(air):
     """Tests retrieving table.
     """

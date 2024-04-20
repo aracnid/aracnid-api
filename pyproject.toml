@@ -12,9 +12,8 @@ packages = [{include = "aracnid_api"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 aracnid-logger = "^1.0"
-pyairtable = "^1.4.0"
+pyairtable = "^2.3"
 python-dateutil = "2.8.2"
-pylint = "^3.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0"

@@ -1,10 +1,11 @@
 """Class module to interface with Airtable.
 """
+# pylint: disable=logging-too-many-args
 import os
 
 from aracnid_logger import Logger
 from dateutil.parser import parse
-from pyairtable import Table
+from pyairtable import Api, Table
 from pyairtable.formulas import match
 
 
@@ -34,8 +35,27 @@ class AirtableInterface:
         # read environment variables
         self.air_api_key = os.environ.get('AIRTABLE_API_KEY')
 
+        # initialize api
+        self.api = Api(self.air_api_key)
+
         # set the base id for the interface
         self.base_id = base_id
+
+        # retrieve the base
+        bases = self.api.bases()
+        self.base = None
+        for base in bases:
+            if base.id == self.base_id:
+                self.base = base
+                break
+
+    def get_base_name(self) -> str:
+        """Returns the name of the Base
+
+        Returns:
+            str: Name of the Base.
+        """
+        return self.base.name
 
     def get_table(self, table_name):
         """Returns the specified Airtable table.
@@ -71,8 +91,9 @@ class AirtableInterface:
                     field_val = field_val[0]
                 else:
                     if not suppress_warnings:
-                        logger.warning(f'{field_name} has multiple values: '
-                            f'{field_val}')
+                        logger.warning(
+                            '%s has multiple values: %s', field_name, field_val
+                        )
 
         return field_val
 
